@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<title>TTMS Mobile</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3pro.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-teal.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<body style="max-width:600px">
+    <div class="w3-cell w3-container">
+        <h3>Name:</h3>
+        <p id="username">???</p>
+        <h3>Matric No.:</h3>
+        <p id="matricno">???</p>
+    </div>
+</body>
+
+</html>
+<script src="TTMS_Lib.js"></script>
+<script>
+    // logout and back to login page if session invalid or 
+    // session time out
+    checkSession();
+
+    var appStorage = JSON.parse(sessionStorage.getItem("web_fc_utm_my_ttms"));
+    console.log(appStorage.user_auth.full_name);
+
+    $("p#username").text(appStorage.user_auth.full_name);
+    $("p#matricno").text(appStorage.user_auth.login_name);
+
+</script>

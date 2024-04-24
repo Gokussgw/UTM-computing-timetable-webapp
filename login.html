@@ -1,0 +1,86 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <div class="w3-container w3-blue">
+        <h2>TTMS Login Page</h2>
+    </div>
+
+    <form class="w3-container">
+        <p>
+            <label>Username</label>
+            <input class="w3-input" type="text" value="" id="username">
+        </p>
+        <p>
+            <label>Password</label>
+            <input class="w3-input" type="password" value="" id="passwd">
+        </p>
+        <p>
+            <button type="button" class="w3-btn w3-white w3-border w3-round-large" onclick="login();">
+                Login
+            </button>
+        </p>
+    </form>
+
+</body>
+
+</html>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="TTMS_Lib.js"></script>
+<script>
+
+    var ajaxURL = "http://web.fc.utm.my/ttms/web_man_webservice_json.cgi?";
+
+    // jump to home page if user already authenticated
+    if (sessionStorage.getItem("web_fc_utm_my_ttms") != null) {
+        window.location.href = "home.html";
+    }
+
+    console.log(getEpoch());
+    console.log("Hi Anas");
+
+    // Start function definition & implementation
+    function login() {
+
+        var username = $('#username').val();
+        var passwd = $('#passwd').val();;
+        var myAuth = { 'entity': 'authentication', 'login': username, 'password': passwd };
+
+        var authGetData = new URLSearchParams(myAuth).toString();
+
+        console.log(authGetData);
+
+        $.ajax({
+            type: "GET", url: ajaxURL,
+            data: authGetData,
+
+            success: function (response, status, xhr) {
+                console.log(response);
+                var auth = JSON.parse(response);
+                var appStorage = {
+                    user_auth: auth[0],
+                    epoch_last: getEpoch(),
+                    data: {}
+                };
+
+                sessionStorage.setItem("web_fc_utm_my_ttms", JSON.stringify(appStorage));
+                console.log("ttms is this: "+sessionStorage.getItem("web_fc_utm_my_ttms"));
+                window.location.href = "home.html";
+            },
+
+            error: function (xhr, status, error) {
+                alert("AJAX error!");
+            },
+
+            async: true,
+        });
+
+
+
+    }
+</script>
