@@ -1,0 +1,20 @@
+Color Theme
+
+    Primary Color: Maroon (prominently used in the header)
+    Secondary Colors: White (for backgrounds and cards), Dark Grey (for footer and text), Light Grey (for card backgrounds and menus)
+
+Design Language
+
+    Layout: Clean and straightforward, focusing on ease of navigation
+    Typography: Sans-serif fonts for readability on mobile
+    Icons: Minimalist icons, likely from a popular icon set
+    Imagery: High-quality images, possibly of the campus and student life, that fit the full width of the mobile screen
+    Buttons: Outlined buttons (for login) with rounded corners
+    Card Design: Information presented in cards with shadows to create a sense of depth
+    Accordion Elements: For sections like Academic Guidelines, with plus icons indicating expandable content
+
+Fonts
+
+    Header Font: Bold and large, for clear visibility and impact
+    Body Font: Simpler, lighter font for easy reading on small screens
+    Font Styling: Some headings appear in all caps to distinguish sections or important information
