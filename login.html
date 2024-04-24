@@ -56,27 +56,33 @@
         console.log(authGetData);
 
         $.ajax({
-            type: "GET", url: ajaxURL,
+            type: "GET",
+            url: ajaxURL,
             data: authGetData,
-
             success: function (response, status, xhr) {
-                console.log(response);
                 var auth = JSON.parse(response);
-                var appStorage = {
-                    user_auth: auth[0],
-                    epoch_last: getEpoch(),
-                    data: {}
-                };
+                if (auth.length > 0) {
+                    var appStorage = {
+                        user_auth: auth[0],
+                        epoch_last: getEpoch(),
+                        data: {}
+                    };
 
-                sessionStorage.setItem("web_fc_utm_my_ttms", JSON.stringify(appStorage));
-                console.log("ttms is this: "+sessionStorage.getItem("web_fc_utm_my_ttms"));
-                window.location.href = "home.html";
+                    sessionStorage.setItem("web_fc_utm_my_ttms", JSON.stringify(appStorage));
+                    window.location.href = "home.html";
+                } else {
+                    alert("Incorrect username or password. Please try again."); // TODO this line doesn't work
+                }
             },
-
             error: function (xhr, status, error) {
-                alert("AJAX error!");
+                if (xhr.status === 0) {
+                    alert("Cannot connect to server. Please check your network connection.");
+                } else if (xhr.status === 401) {
+                    alert("Unauthorized: Incorrect username or password.");
+                } else {
+                    alert("AJAX error: " + xhr.responseText);
+                }
             },
-
             async: true,
         });
 
