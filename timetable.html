@@ -1,20 +1,65 @@
 <!DOCTYPE html>
 <html>
-<title>TTMS Mobile</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3pro.css">
-<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-teal.css">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<head>
+    <title>UTM Tempo - Weekly Timetable</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-teal.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body class="w3-theme-l5" style="max-width:600px">
 
-<body style="max-width:600px">
-This is timetable page
-</body>
-</html>
+<div class="w3-container w3-theme">
+    <h2>Weekly Timetable</h2>
+</div>
+
+<table class="w3-table-all w3-centered w3-card">
+    <tr class="w3-theme-d2">
+        <th>Time / Day</th>
+        <th>Sunday</th>
+        <th>Monday</th>
+        <th>Tuesday</th>
+        <th>Wednesday</th>
+        <th>Thursday</th>
+    </tr>
+    <!-- Time slots mapping -->
+    <script>
+        const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday'];
+        const timeSlots = {
+            2: '8 AM', 3: '9 AM', 4: '10 AM', 5: '11 AM', 
+            6: '12 PM', 7: '1 PM', 8: '2 PM', 9: '3 PM', 10: '4 PM', 11: '5 PM'
+        };
+
+        // Initialize timetable data, potentially fetched from a server or database
+        const timetableData = [
+            [], [], [], [], []  // One sub-array for each day, Sunday to Thursday
+        ];
+
+        // Simulated example data insertion
+        timetableData[0][2] = 'Introduction to Programming'; // Sunday at 8 AM
+        // Add more data similarly...
+
+        Object.keys(timeSlots).forEach(hour => {
+            const time = timeSlots[hour];
+            document.write('<tr>');
+            document.write(`<td>${time === '1 PM' ? 'Lunch Time' : time}</td>`); // Handling lunch time
+            days.forEach((day, index) => {
+                const sessionInfo = timetableData[index][hour] || '';
+                document.write(`<td>${sessionInfo}</td>`);
+            });
+            document.write('</tr>');
+        });
+    </script>
+</table>
 
 <script src="TTMS_Lib.js"></script>
 <script>
-    // logout and back to login page if session invalid or 
-    // session time out
+    function checkSession() {
+        // Placeholder for session check
+        console.log("Session checked");
+    }
     checkSession();
 </script>
+
+</body>
+</html>
