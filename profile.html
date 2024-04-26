@@ -1,35 +1,60 @@
 <!DOCTYPE html>
 <html>
-<title>TTMS Mobile</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3pro.css">
-<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-teal.css">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-
+<head>
+    <title>TTMS Mobile</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3pro.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-teal.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <script src="SubjectManager.js"></script>
+    <script src="TTMS_Lib.js"></script>
+</head>
 <body style="max-width:600px">
+    <div class="w3-container w3-theme">
+        <h2>Student Profile</h2>
+    </div>
     <div class="w3-cell w3-container">
         <h3>Name:</h3>
         <p id="username">???</p>
         <h3>Matric No.:</h3>
         <p id="matricno">???</p>
     </div>
+    <div class="w3-container">
+        <h3>Current Semester Subjects:</h3>
+        <ul id="currentSubjects" class="w3-ul"></ul>
+    </div>
+
+    <script>
+        // logout and back to login page if session invalid or 
+        // session time out
+        checkSession();
+
+        var appStorage = JSON.parse(sessionStorage.getItem("web_fc_utm_my_ttms"));
+        console.log("user full name: " + appStorage.user_auth.full_name);
+        console.log("user description: " + appStorage.user_auth.description);
+        console.log("user session id: " + appStorage.user_auth.session_id);
+        console.log("user login name (Matric): " + appStorage.user_auth.login_name);
+
+        $("p#username").text(appStorage.user_auth.full_name);
+        $("p#matricno").text(appStorage.user_auth.login_name);
+        displaySubjects();
+
+        // Assuming SubjectManager is correctly included and initialized
+
+        async function displaySubjects() {
+            const subjectManager = new SubjectManager();
+            const studentId = appStorage.user_auth.login_name; // Using matric no. as student ID
+            const latestSemesterSubjects = await subjectManager.fetchLatestSemesterSubjects(studentId);
+
+            // Display current subjects
+            const latestSession = latestSemesterSubjects[0].sesi;
+            const currentSubjects = latestSemesterSubjects.filter(subject => subject.sesi === latestSession);
+            currentSubjects.forEach(subject => {
+                $("#currentSubjects").append(`<li>${subject.nama_subjek}</li>`);
+            });
+        }
+
+    </script>
 </body>
-
 </html>
-<script src="TTMS_Lib.js"></script>
-<script>
-    // logout and back to login page if session invalid or 
-    // session time out
-    checkSession();
-
-    var appStorage = JSON.parse(sessionStorage.getItem("web_fc_utm_my_ttms"));
-    console.log("user full name: "+appStorage.user_auth.full_name);
-    console.log("user desription: "+appStorage.user_auth.description);
-    console.log("user session id: "+appStorage.user_auth.session_id);
-    console.log("user login name (Matric): "+appStorage.user_auth.login_name);
-
-    $("p#username").text(appStorage.user_auth.full_name);
-    $("p#matricno").text(appStorage.user_auth.login_name);
-
-</script>
