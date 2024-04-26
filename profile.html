@@ -24,7 +24,10 @@
     checkSession();
 
     var appStorage = JSON.parse(sessionStorage.getItem("web_fc_utm_my_ttms"));
-    console.log(appStorage.user_auth.full_name);
+    console.log("user full name: "+appStorage.user_auth.full_name);
+    console.log("user desription: "+appStorage.user_auth.description);
+    console.log("user session id: "+appStorage.user_auth.session_id);
+    console.log("user login name (Matric): "+appStorage.user_auth.login_name);
 
     $("p#username").text(appStorage.user_auth.full_name);
     $("p#matricno").text(appStorage.user_auth.login_name);
