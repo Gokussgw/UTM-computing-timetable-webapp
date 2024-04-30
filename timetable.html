@@ -29,7 +29,7 @@
             timetableHtml += '<tr class="w3-theme-d2"><th>Time / Day</th><th>Sunday</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th></tr>';
 
             const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday'];
-            const timeSlots = { 2: '8 AM', 3: '9 AM', 4: '10 AM', 5: '11 AM', 6: '12 PM', 7: '1 PM', 8: '2 PM', 9: '3 PM', 10: '4 PM', 11: '5 PM' };
+            const timeSlots = { 2: '8 AM', 3: '9 AM', 4: '10 AM', 5: '11 AM', 6: '12 PM', 7: 'Lunch break', 8: '2 PM', 9: '3 PM', 10: '4 PM', 11: '5 PM' };
 
             Object.keys(timeSlots).forEach(hour => {
                 timetableHtml += `<tr><td>${timeSlots[hour]}</td>`;
