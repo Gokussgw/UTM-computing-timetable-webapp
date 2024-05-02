@@ -18,7 +18,7 @@
         <h3>Name:</h3>
         <p id="username">???</p>
         <h3>Matric No.:</h3>
-        <p id="matricno">???</p>
+        <p id="matricno">???</p>  <!-- //TODO display matric/staffid to according to user description --> 
     </div>
     <div class="w3-container">
         <h3>Current Semester Subjects:</h3>
@@ -44,8 +44,8 @@
 
         async function displaySubjects() {
             const subjectManager = new SubjectManager();
-            const studentId = appStorage.user_auth.login_name; // Using matric no. as student ID
-            const latestSemesterSubjects = await subjectManager.fetchLatestSemesterSubjects(studentId);
+            const user_id = appStorage.user_auth.description == "Pensyarah" ? appStorage.user_auth.no_pekerja : appStorage.user_auth.login_name;
+            const latestSemesterSubjects = await subjectManager.fetchLatestSemesterSubjects(user_id);
 
             // Display current subjects
             const latestSession = latestSemesterSubjects[0].sesi;

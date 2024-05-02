@@ -3,9 +3,11 @@ class SubjectManager {
         this.baseUrl = "http://web.fc.utm.my/ttms/web_man_webservice_json.cgi";
     }
 
-    // Fetch all subjects for a given student ID
-    async fetchStudentSubjects(studentId) {
-        const url = `${this.baseUrl}?entity=pelajar_subjek&no_matrik=${studentId}`;
+    // Fetch all subjects for a given user ID
+    async fetchUserSubjects(userId) {
+        const entity = appStorage.user_auth.description == "Pensyarah" ? "pensyarah_subjek" : "pelajar_subjek"; // it's a pro-lazy way to do this. I won't create another function. Maybe in the future.
+        const id = appStorage.user_auth.description == "Pensyarah" ? "no_pekerja" : "no_matrik";
+        const url = `${this.baseUrl}?entity=${entity}&${id}=${userId}`;
         try {
             const response = await fetch(url);
             const data = await response.json();
@@ -17,8 +19,8 @@ class SubjectManager {
     }
 
     // Fetch the subjects of the latest semester
-    async fetchLatestSemesterSubjects(studentId) {
-        const subjects = await this.fetchStudentSubjects(studentId);
+    async fetchLatestSemesterSubjects(userId) {
+        const subjects = await this.fetchUserSubjects(userId);
         
         // Determine the latest session
         const latestSession = subjects.reduce((latest, subject) => {

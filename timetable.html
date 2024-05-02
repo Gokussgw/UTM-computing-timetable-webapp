@@ -23,7 +23,9 @@
         async function initializeTimetable() {
             const appStorage = JSON.parse(sessionStorage.getItem("web_fc_utm_my_ttms"));
             const subjectManager = new SubjectManager();
-            const latestSemesterSubjects = await subjectManager.fetchLatestSemesterSubjects(appStorage.user_auth.login_name);
+            const user_id = appStorage.user_auth.description == "Pensyarah" ? appStorage.user_auth.no_pekerja : appStorage.user_auth.login_name;
+            console.log(user_id);
+            const latestSemesterSubjects = await subjectManager.fetchLatestSemesterSubjects(user_id);
 
             let timetableHtml = '<table class="w3-table-all w3-centered w3-card">';
             timetableHtml += '<tr class="w3-theme-d2"><th>Time / Day</th><th>Sunday</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th></tr>';
