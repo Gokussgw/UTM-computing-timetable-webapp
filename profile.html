@@ -10,7 +10,7 @@
     <script src="SubjectManager.js"></script>
     <script src="TTMS_Lib.js"></script>
 </head>
-<body style="max-width:600px">
+<body>
     <div class="w3-container w3-theme">
         <h2>Student Profile</h2>
     </div>
@@ -21,7 +21,6 @@
         <p id="matricno">???</p>  <!-- //TODO display matric/staffid to according to user description --> 
     </div>
     <div class="w3-container">
-        <h3>Current Semester Subjects:</h3>
         <ul id="currentSubjects" class="w3-ul"></ul>
     </div>
 
@@ -47,12 +46,6 @@
             const user_id = appStorage.user_auth.description == "Pensyarah" ? appStorage.user_auth.no_pekerja : appStorage.user_auth.login_name;
             const latestSemesterSubjects = await subjectManager.fetchLatestSemesterSubjects(user_id);
 
-            // Display current subjects
-            const latestSession = latestSemesterSubjects[0].sesi;
-            const currentSubjects = latestSemesterSubjects.filter(subject => subject.sesi === latestSession);
-            currentSubjects.forEach(subject => {
-                $("#currentSubjects").append(`<li>${subject.nama_subjek}</li>`);
-            });
         }
 
     </script>
